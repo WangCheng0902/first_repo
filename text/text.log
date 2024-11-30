@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.11.30)  30 NOV 2024 16:08
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.11.30)  30 NOV 2024 16:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -228,8 +228,7 @@ Package: lipsum 2021-09-20 v2.7 150 paragraphs of Lorem Ipsum dummy text
 \g__lipsum_par_int=\count294
 \l__lipsum_a_int=\count295
 \l__lipsum_b_int=\count296
- (d:/texlive/2024/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex))
-No file text.aux.
+ (d:/texlive/2024/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex)) (./text.aux)
 \openout1 = `text.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
@@ -248,6 +247,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -395,11 +395,11 @@ Package fontspec Info: Font family 'SimSun(1)' created for font 'SimSun' with
 Package lipsum Warning: Unknown language 'latin'. Hyphenation patterns for
 (lipsum)                'english' will be used instead.
 
-No file text.toc.
+(./text.toc)
 \tf@toc=\write3
 \openout3 = `text.toc'.
 
-[1
+ [1
 
 ] (./text.aux)
  ***********
@@ -408,11 +408,11 @@ L3 programming layer <2022/07/14>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 7219 strings out of 476720
- 208930 string characters out of 5801443
+ 7227 strings out of 476720
+ 209062 string characters out of 5801443
  1923842 words of memory out of 5000000
- 29165 multiletter control sequences out of 15000+600000
- 562711 words of font info for 80 fonts, out of 8000000 for 9000
+ 29168 multiletter control sequences out of 15000+600000
+ 562719 words of font info for 81 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  93i,7n,97p,358b,470s stack positions out of 10000i,1000n,20000p,200000b,200000s
 

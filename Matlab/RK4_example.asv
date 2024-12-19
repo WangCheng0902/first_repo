@@ -9,6 +9,7 @@ w0 = 0.5;
 h0 = 0.2;
 %%-----------------------
 
+
 rk45(t0,w0,h0)
 
 function rk45(t,w,h)
@@ -27,24 +28,18 @@ while t<2
     w2 = w + 16*k1/135+6656*k3/12825+28561*k4/56430-9*k5/50+2*k6/55;
     R = 1/h*abs(w1-w2);
     delta = 0.84*(epsilon/R)^1/4;
-    
+    deltap[i]
 
 if R <= epsilon
-    t = t + h; 
+    t = t + h;
     w = w1;
     i = i+1;
-    Tt(i) = t;
-    It(i) = i;
     fprintf('Step %d: t = %6.4f, w = %18.15f\n', i, t, w);
     h = delta*h;
-    fprintf('step delta = %18.15f\n',delta);
-    deltap(i) = delta;
 else
     h = delta*h;
 end 
 end
-figure
-plot(Tt,deltap)
 end
 
 

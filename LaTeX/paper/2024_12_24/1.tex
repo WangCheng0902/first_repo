@@ -8,6 +8,9 @@
 
 % 导入常用包（根据需要添加）
 \usepackage{amsmath, amssymb} % 数学公式
+\usepackage{booktabs} % 提供高级表格线
+\usepackage{multirow} % 单元格合并
+\usepackage{array} % 表格排版控制
 \usepackage{graphicx} % 插入图片
 \usepackage{hyperref} % 超链接
 \hypersetup{
@@ -114,13 +117,81 @@ SAS 的微观结构影响脑脊液动力学。微观结构的影响可以通过�
     \varepsilon = \frac{V_{\text{fluid}}}{V_{\text{tot}}} = \frac{L^2 - \pi r^2}{L^2}
 \end{equation}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Figures/4.png}
+    \caption{模型设置。顶部：正面视图。 底部：俯视图。 模型的颅域放置在PMMA箱中，并被水所包围。 显示了激励和采集系统的组件，以及顺应性和SAS隔室。 幻影设置的组件成本约为43,000美元。}
+    \label{fig:csf_flow_path}
+\end{figure}
+$L$是相邻代表性单位单元之间中心距离，我们选择了$r = 0.5$毫米和$L = 1.5$毫米的配置，根据（1）和（2）得到了$1.7×10^{−8}$平方米的磁导率值。
+这种柱状构型是通过3D打印（Eden350V，Objet Geometries Inc.）制造的，并放置在聚甲基丙烯酸甲酯（PMMA）外壳中，以123.7毫升的体积代表其颅内空腔系统，根据体内MRI数据（见图2）。
+SAS区被连接到24毫升容积的圆柱腔，代表了基底池空间（见图1）。这种模块化方法允许简单地改变SAS阻力，以应对可能导致SAS阻塞的病理情况，如出血。
 
+除了SAS表征和合规模块（见第II-D节）外，所有颅内元素包括头骨、硅胶脑、池和脑室腔都封闭在一个注满水的PMMA盒子中（见图3和图4）。
+水不仅可以模拟动物实验中观察到的脑部浮力效应，还可作为从脉搏泵（见II-E节）传递压力脉冲到颅内隔室的传输介质，模拟动脉脉动的效果。
+
+\subsection*{D.顺应性}
+颅脊系统的顺应性C被定义为其体积V随其压力P变化而变化的程度。
+\begin{equation}
+    C = \frac{dV}{dP}
+\end{equation}
+顺应性可以通过灌注实验来测量。顺应性可由此推导出的生理压力-体积关系大致如下：
+\begin{equation}
+    ICP = P_0e^{KV} + P_1
+\end{equation}
+$P_r = P_0 + P_1$代表输注前的静息颅内压（ICP）水平，$K$代表脑弹性系数。
+据报道，健康人类的$K$可在 0.0886 到 0.177 $\mathrm{ml}^{-1}$之间变化，
+对应于未受干扰的脑室容积和健康静息压力为$P_r = 10$mmHg 时的生理顺应性在 0.56 到 1.13 ml/mmHg 之间。
+
+两个充满水和空气的顺应容器被用来再现生理顺应值。它们的整体设计基于理想气体行为的假设，具有绝热压缩和膨胀功能。
+
+\begin{equation}
+    PV^{1.4} = \text{常数}
+\end{equation}
+
+顺应容器经过实验校准，以确保在仿体的工作条件下总体顺应性为1 ml/mmHg。
+它们分别连接到脑池和蛛网膜下腔室。前者代表脊柱顺应性（总顺应性的35\%），后者代表颅内顺应性。
+
+在输液测试过程中，顺应性呈指数趋势变化，但在生理条件下可以视为恒定：在心脏周期中，颅内血容量的变化比输液过程中注入的量小两个数量级。
+
+\subsection*{E.执行系统}
+这个模型可以模拟脑脊液的大量流和脉动流。使用室温下的去离子水代表脑脊液。
+使用一个蠕动泵(Peristaltic Pump 66 \& 77, 哈佛仪器有限公司, 霍利斯顿, 马萨诸塞州)在脑室中模拟脑脊液的产生和在皮层下蛛网膜腔中的吸收过程。脑脊液的大量流设定为0.35毫升/分钟(500毫升/天)，在产生和吸收部位模拟健康的条件。
+使用可编程泵(CompuFlow 1000MR, Shelley Medical Imaging Technologies, 加拿大安大略伦敦)瞬时施加1 Hz频率来加压包围在PMMA箱内的水和脑脊液空间，诱发类似于健康体内条件下的脑脊液和颅内压脉动(见表I)。这个脉动泵通过LabVIEW接口(National Instruments, 德克萨斯州奥斯汀)来控制。
+两个精密调节阀(Serto AG, 瑞士Aadorf)将泵的输出分为两部分:第一个通过脑室壁位移产生暂时性改变，而第二个推动脑脊液在蛛网膜腔中移位。
+
+\subsection*{F.测量系统}
+在模型中的选择位置监测压力和流量。颅内压记录在脑室、脑池和蛛网膜下腔空间。
+按照临床颅内压监测的黄金标准，使用微端压力传感器和相应的控制单元来获取颅内压。
+测量数据传输到数据记录仪（Beckhoff Automation GmbH，Verl，德国），在LabVIEW中处理并记录在台式电脑上。压力传感器（Series 41X，Keller AG，瑞士Winterthur）连接到脑室引流的通道。
+使用科氏力流量传感器（Cubemass，Endress+Hauser Metso AG，Reinach，Switzerland）测量脉动泵与蛛网膜下腔之间的振荡流量。
+\begin{table}[h!]
+    \centering
+    \caption{Phantom Operating Parameters}
+    \renewcommand{\arraystretch}{1.5} % 调整行距
+    \begin{tabular}{l l c c}
+    \toprule
+    \textbf{Symbol} & \textbf{Description}                & \textbf{Phantom Values} & \textbf{Physiologic Range} \\ 
+    \midrule
+    $\Phi$          & CSF bulk flow                      & 0.35 ml/min             & 0.27--0.45 [14]            \\ 
+    $C_{\text{tot}}$& Total compliance                   & 1 ml/mmHg               & 0.56--1.12 [14]            \\ 
+    $k$             & SAS permeability                   & $1.7 \times 10^{-8} \, \text{m}^2$ & $9.05 \times 10^{-9}$ -- $1.45 \times 10^{-7}$ [6, 15] \\ 
+    $\omega$        & Basal heart rate                   & 60 bpm                  & 50--100 [40, 41]           \\ 
+    $A_{\text{ventricles}}$ 
+                    & Amplitude of ventricular pulse     & 0.2 ml/s                & $<0.3$ [33, 35, 36]        \\ 
+    $A_{\text{SAS}}$ 
+                    & Amplitude of SAS pulse             & 2 ml/s                  & 1.18--3.97 [33, 36]        \\ 
+    $V_{\text{ventricles}}$ 
+                    & Volume of ventricles               & 29.6 ml                 & 17.6--34 [42]              \\ 
+    $V_{\text{IC}}$ & Intracranial CSF Volume            & 177.3 ml                & 143.1--246.3 [42]          \\ 
+    \bottomrule
+    \end{tabular}
+    \label{table:phantom_parameters}
+\end{table}
 
 \section*{\uppercase\expandafter{\romannumeral3}.结果}
 
 \section*{\uppercase\expandafter{\romannumeral4}.讨论}
-
-
 
 
 \end{document}

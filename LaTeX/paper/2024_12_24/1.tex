@@ -10,6 +10,12 @@
 \usepackage{amsmath, amssymb} % 数学公式
 \usepackage{graphicx} % 插入图片
 \usepackage{hyperref} % 超链接
+\hypersetup{
+    colorlinks=true, % 激活链接颜色
+    linkcolor=blue, % 文档内部链接颜色，适用于图、表在文中的引用
+    citecolor=blue, % 文献引用链接颜色，适用于文中参考文献引用
+    urlcolor=blue  % 外部URL链接颜色，适用于参考文献添加超链接
+}
 \usepackage{xcolor} % 颜色支持
 
 % 标题和作者信息（可选）
@@ -21,10 +27,11 @@
 
 % 标题
 \maketitle
+\newpage
 
 % 目录（可选）
-\tableofcontents
-\newpage
+% \tableofcontents
+% \newpage
 
 % 正文
 \begin{center}
@@ -62,6 +69,52 @@ CSF动力学的变化与多种疾病有关。例如，脑积水和脊髓空洞�
 \section*{\uppercase\expandafter{\romannumeral2}.材料与方法}
 
 \subsection*{A. 脑脊液和脑室系统}
+我们使用以下方法在硅胶大脑中构造了一个脑室系统：对 27 岁健康男性志愿者采集的 MRI 数据进行3D重建，为设计模型的脑室区域提供了解剖学参考。
+将脑室系统简化以获得适合铸造的矢状对称性：利用计算机辅助设计（CAD）软件（NX 7.5，西门子PLM软件，美国德克萨斯州普莱诺）将侧脑室合并为单一脑室表示；Monro孔被统一为通向第三脑室的单一连接器；Luschka孔和Magendie孔也被合并为单一通道。
+这个简化的脑室区域的负模通过3D打印在Eden350V光聚合物打印机（Objet Geometries公司，美国马萨诸塞州比勒里卡市）上制造为两个矢状对称的半部分。
+
+在获得脑室空间的正像（见第II-B节）后，将一个内径为2毫米的硅胶管插入到大脑导水管中，以避免其在模拟体构建期间发生形变。
+为了模拟脑室中的脑脊液生成，在脑室系统的顶部建立了一个接入端口。这个接入端口也用于脑脊液空间的初步填充。在大脑导水管的顶部和底部建立了两个压力感应接入点。
+改进的脑室系统如图\ref{fig:ventricular_system}所示，简化的效果在第IV节讨论。
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/1.png}
+    \caption{模型的颅域。硅质大脑被容纳在塑料人类颅骨内。简化脑室系统的腔内显示为CAD模型的叠加。}
+    \label{fig:ventricular_system}
+\end{figure}
+\subsection*{B.大脑和颅骨}
+使用Sylgard 527，A＆B绝缘硅胶（陶氏康宁，密歇根州米德兰）制成了一颗真人大小的硅胶大脑。先前的研究表明，这种材料在静态变形和动态加载高达10Hz时具有类似大脑的机械行为。
+硅胶是围绕两个脑室负半部分铸造的。
+固化后，负片被移除，左右脑部件用相同的硅胶粘在一起。在脑室壁上涂上一层标准铸造硅胶，以防止在坍塌时粘连。
+
+完整的大脑被放置在一个已经移除上部的塑料人类头骨模型内（3B Scientific，德国汉堡）（见图\ref{fig:ventricular_system}）。
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/2.png}
+    \caption{SAS隔室设计。采用统一的模块化柱状结构以实现体内液力阻力值。 (a) SAS 宏解剖学。 (b) 理想化的柱状结构代表 SAS 微解剖学。 (c) 代表性单元格的顶视图。 (d) SAS 隔室的 CAD 设计。 (e) 3-D 打印的 SAS 表示和连接到模型的脑脊液池 (参见图 4)。}
+    \label{fig:silicone_brain}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/3.png}
+    \caption{仿真体设置示意图。脑室被包裹在硅胶大脑中，并连接到脑池和蛛网膜下腔。脑脊液产生和吸收速率可被控制。脑脊柱和颅脑顺应性单位分别连接到脑池和蛛网膜下腔。脉动流和颅内压在指示的位置监测。黑色三角形表示水-空气界面。}
+    \label{fig:model_assembly}
+\end{figure}
+\subsubsection*{C.蓄水池与SAS}
+脑脊液的整体流动起始于脑室，继续流向颅底的池，最终到达脊髓和皮质蛛网膜下腔（SAS），在那里大部分被重吸收至静脉血中。
+SAS 的微观结构影响脑脊液动力学。微观结构的影响可以通过其水力阻力的空间平均和表示，而水力阻力与渗透率有关。
+据报道，SAS 的渗透率范围在$10^{-9}$到$10^{-7}$平方米之间。我们使用了平行板之间的均质柱结构（见图\ref{fig:silicone_brain}）来解释 SAS 的水力阻力。
+在这样的结构中，渗透率$k$是柱半径$r$和空隙率$\varepsilon$的函数:
+\begin{equation}
+    \frac{k}{r^2} = \frac{\pi \varepsilon \left(1 - \sqrt{1 - \varepsilon}\right)^2}{24 \left(1 - \varepsilon\right)^{3/2}} \quad \text{and}
+\end{equation}
+
+\begin{equation}
+    \varepsilon = \frac{V_{\text{fluid}}}{V_{\text{tot}}} = \frac{L^2 - \pi r^2}{L^2}
+\end{equation}
+
+
 
 \section*{\uppercase\expandafter{\romannumeral3}.结果}
 
